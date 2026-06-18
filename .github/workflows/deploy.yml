@@ -42,6 +42,23 @@ jobs:
         run: npm ci
       - name: Install Quartz plugins
         run: npx quartz plugin install
+      - name: Flatten top-level PARA folders
+        run: |
+          for dir in content/*/; do
+            [ -d "$dir" ] || continue
+            rsync -a "$dir" content/
+            rm -rf "$dir"
+          done
+      - name: Strip category prefix before underscore
+        run: |
+          find content/ -depth -name '*_*' | while IFS= read -r path; do
+            dir=$(dirname "$path")
+            base=$(basename "$path")
+            newbase="${base#*_}"
+            if [ "$base" != "$newbase" ] && [ ! -e "$dir/$newbase" ]; then
+              mv "$dir/$base" "$dir/$newbase"
+            fi
+          done
       - name: Build Quartz
         run: npx quartz build
       - name: Upload artifact

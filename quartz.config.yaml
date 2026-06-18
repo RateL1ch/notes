@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: null
   locale: ja-JP
-  baseUrl: ratel1ch.github.io/notes
+  baseUrl: note.ratesystem.biz
   ignorePatterns:
     - private
     - templates
@@ -118,7 +118,7 @@ plugins:
   - source: github:quartz-community/og-image
     enabled: true
   - source: github:quartz-community/cname
-    enabled: false
+    enabled: true
   - source: github:quartz-community/canvas-page
     enabled: true
   - source: github:quartz-community/content-page
